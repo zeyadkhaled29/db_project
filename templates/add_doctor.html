@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Profile</title>
-    <link rel="stylesheet" href="add_styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_styles.css') }}">
 </head>
 <header>
     <nav>
         <ul>
-            <li><a href="signin.html">Sign In</a></li>
+            <li><a href="/sign_in">Sign In</a></li>
             <li><a href="#">Contact Us</a></li>
             <li><a href="add_patient.html">Sign Up</a></li>
         </ul>
@@ -19,46 +19,52 @@
 
     <div class="container">
         <h1>Doctor Profile</h1>
-        <label for="photo">Photo:</label>
-        <input type="file" id="photo" name="photo" accept="image/*">
-        <img id="preview" src="doctor-photo.jpg">
+        <form action="/add_doctor" method="post" enctype="multipart/form-data"></form>
+            <!-- Department Selection (Dropdown) -->
+            <label for="department">Select Department:</label>
+            <select id="department" name="department" required>
+                {% for department in departments %}
+                    <option value="{{ department[1] }}">{{ department[0] }}</option>
+                {% endfor %}
+            </select>
 
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" required>
+            <!-- Other Doctor Information Fields -->
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required>
 
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" required>
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required>
 
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="tel" id="phoneNumber" name="phoneNumber" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
 
-        <label for="birthDate">Birth Date:</label>
-        <input type="date" id="birthDate" name="birthDate" required>
+            <label for="phone_number">Phone Number:</label>
+            <input type="tel" id="phone_number" name="phone_number" required>
 
-        <label for="gender">Gender:</label>
-        <select id="gender" name="gender" required>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+            <label for="street">Street:</label>
+            <input type="text" id="street" name="street" required>
 
-        <label for="address">Address:</label>
-        <textarea id="address" name="address" rows="4" required></textarea>
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+            </select>
 
-        <label for="department">Department:</label>
-        <select id="department" name="department" required>
-            <option value="cardiology">Cardiology</option>
-            <option value="neurology">Neurology</option>
-            <option value="orthopedics">Orthopedics</option>
-            <!-- Add more department options as needed -->
-        </select>
+            <label for="birth_date">Birth Date:</label>
+            <input type="date" id="birth_date" name="birth_date" required>
 
-        <label for="id">Doctor ID:</label>
-        <input type="text" id="id" name="id" required>
+            <!-- Image Upload -->
+            <label for="profile_image">Profile Image:</label>
+            <input type="file" id="profile_image" name="profile_image" accept="image/*">
 
-        <button type="submit">Save Profile</button>
+            <button type="submit">Add Doctor</button>
+        </form>
+        {% if msg %}
+            <div>{{ msg }}</div>
+        {% endif %}
     </div>
 
     <script>
