@@ -1,0 +1,182 @@
+CREATE DATABASE hospital;
+\c hospital;
+
+
+create table "Doctors"
+(
+    "DoctorID"    SERIAL not null
+        constraint "Doctors_pk"
+            primary key,
+    "Email"       bpchar  not null,
+    "FirstName"   varchar not null,
+    "Gender"      char    not null,
+    "DateOfBirth" date    not null,
+    "LastName"    varchar not null,
+    "City"        varchar not null,
+    "Street"      varchar not null,
+    "DoorNumber"  integer not null
+);
+
+
+create table "Patients"
+(
+    "PatientID"   SERIAL not null
+        constraint "Patients_pk"
+            primary key,
+    "FirstName"   varchar not null,
+    "LastName"    varchar not null,
+    "Gender"      varchar not null,
+    "DateOfBirth" date    not null,
+    "City"        varchar not null,
+    "Street"      varchar not null,
+    "DoorNumber"  integer not null
+);
+
+
+create table "Prescriptions"
+(
+    "Frequency"        double precision not null,
+    "PrescriptionID"   integer          not null
+        constraint "Prescriptions_pk"
+            primary key,
+    "ActiveEngredient" varchar          not null,
+    "Dosage"           varchar          not null
+);
+
+
+create table "Appointments"
+(
+    "AppointmentDate" date    not null,
+    "AppointmentID"   integer not null
+        constraint "Appointments_pk"
+            primary key,
+    "Purpose"         varchar not null,
+    "PatientID"       integer not null
+        constraint "Appointments_Patients_PatientID_fk"
+            references "Patients",
+    "DoctorID"        integer not null
+        constraint "Appointments_Doctors_DoctorID_fk"
+            references "Doctors"
+);
+
+
+create table "Examinations"
+(
+    "ExamID"    integer not null
+        constraint "Examinations_pk"
+            primary key,
+    "Treatment" varchar not null,
+    "Diagnosis" varchar not null,
+    "ExamDate"  date    not null
+);
+
+
+create table "Departments"
+(
+    "DepartmentID"   integer not null
+        constraint "Departments_pk"
+            primary key,
+    "DepartmentName" varchar not null,
+    "Description"    varchar not null
+);
+
+
+create table doctorsphone
+(
+    "PhoneNumber" integer not null,
+    "DoctorID"    integer not null
+        constraint "doctorsphone_Doctors_DoctorID_fk"
+            references "Doctors",
+    constraint doctorsphone_pk
+        primary key ("DoctorID", "PhoneNumber")
+);
+
+
+
+create table patientnumber
+(
+    "PhoneNumber" integer not null,
+    "PatientID"   integer not null
+        constraint "patientnumber_Patients_PatientID_fk"
+            references "Patients",
+    constraint patientnumber_pk
+        primary key ("PhoneNumber", "PatientID")
+);
+
+
+
+create table contain
+(
+    "PrescriptionID" integer not null
+        constraint "contain_Prescriptions_PrescriptionID_fk"
+            references "Prescriptions",
+    "ExamID"         integer not null
+        constraint "contain_Examinations_ExamID_fk"
+            references "Examinations",
+    constraint contain_pk
+        primary key ("ExamID", "PrescriptionID")
+);
+
+
+
+create table "DeptLoc"
+(
+    "DepartmentID" integer not null
+        constraint "DeptLoc_Departments_DepartmentID_fk"
+            references "Departments",
+    "Location"     varchar not null,
+    constraint "DeptLoc_pk"
+        primary key ("DepartmentID", "Location")
+);
+
+
+create table need
+(
+    "ExamID"    integer not null
+        constraint "need_Examinations_ExamID_fk"
+            references "Examinations",
+    "PatientID" integer not null
+        constraint "need_Patients_PatientID_fk"
+            references "Patients",
+    constraint need_pk
+        primary key ("ExamID", "PatientID")
+);
+
+
+create table inside
+(
+    "AppointmentID" integer not null
+        constraint "inside_Appointments_AppointmentID_fk"
+            references "Appointments",
+    "DepartmentID"  integer not null
+        constraint "inside_Departments_DepartmentID_fk"
+            references "Departments",
+    "Room"          varchar not null,
+    constraint inside_pk
+        primary key ("DepartmentID", "AppointmentID")
+);
+
+CREATE TABLE "Doctors_accounts" (
+    "id" SERIAL PRIMARY KEY,
+    "DoctorID" INTEGER NOT NULL,
+    "UserName" VARCHAR(50) UNIQUE NOT NULL,
+    "Password" VARCHAR(255) NOT NULL,
+    CONSTRAINT "Doctors_accounts_Doctors_DoctorID_fk" FOREIGN KEY ("DoctorID") REFERENCES "Doctors" ("DoctorID")
+);
+
+CREATE TABLE "Patients_accounts" (
+    "id" SERIAL PRIMARY KEY,
+    "PatientID" INTEGER NOT NULL,
+    "UserName" VARCHAR(50) UNIQUE NOT NULL,
+    "Password" VARCHAR(255) NOT NULL,
+    CONSTRAINT "Patients_accounts_Patients_PatientID_fk" FOREIGN KEY ("PatientID") REFERENCES "Patients" ("PatientID")
+);
+
+CREATE TABLE "Admins_accounts" (
+    "UserName" VARCHAR(50) PRIMARY KEY,
+    "Password" VARCHAR(255) NOT NULL
+);
+
+
+
+
