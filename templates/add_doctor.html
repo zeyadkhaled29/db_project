@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Doctor</title>
+    <style>
+        label, input, select {
+            display: block;
+            margin-bottom: 10px; /* Add some spacing between elements */
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Doctor</h1>
+
+    <!-- Add Doctor Form -->
+    <form action="/add_doctor" method="post" enctype="multipart/form-data">
+        <!-- Department Selection (Dropdown) -->
+        <label for="department">Select Department:</label>
+        <select id="department" name="department" required>
+            {% for department in departments %}
+                <option value="{{ department[1] }}">{{ department[0] }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Other Doctor Information Fields -->
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required>
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone_number">Phone Number:</label>
+        <input type="tel" id="phone_number" name="phone_number" required>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required>
+
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="street" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+
+        <label for="birth_date">Birth Date:</label>
+        <input type="date" id="birth_date" name="birth_date" required>
+
+        <!-- Image Upload -->
+        <label for="profile_image">Profile Image:</label>
+        <input type="file" id="profile_image" name="profile_image" accept="image/*">
+
+        <button type="submit">Add Doctor</button>
+    </form>
+</body>
+</html>
