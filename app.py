@@ -31,6 +31,11 @@ def generate_password():
     password = ''.join(secrets.choice(alphabet) for i in range(10))  # Adjust the length as needed
     return password
 
+
+
+    
+
+
 @app.route('/')
 def index():
     return render_template('main.html')
