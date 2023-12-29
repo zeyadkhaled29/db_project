@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Profile</title>
+    <title>Patient Profile</title>
     <link rel="stylesheet" href="add_styles.css">
 </head>
 <header>
@@ -18,7 +18,7 @@
 <body>
 
     <div class="container">
-        <h1>Doctor Profile</h1>
+        <h1>Patient Profile</h1>
         <label for="photo">Photo:</label>
         <input type="file" id="photo" name="photo" accept="image/*">
         <img id="preview" src="doctor-photo.jpg">
@@ -47,15 +47,7 @@
         <label for="address">Address:</label>
         <textarea id="address" name="address" rows="4" required></textarea>
 
-        <label for="department">Department:</label>
-        <select id="department" name="department" required>
-            <option value="cardiology">Cardiology</option>
-            <option value="neurology">Neurology</option>
-            <option value="orthopedics">Orthopedics</option>
-            <!-- Add more department options as needed -->
-        </select>
-
-        <label for="id">Doctor ID:</label>
+        <label for="id">Patient ID:</label>
         <input type="text" id="id" name="id" required>
 
         <button type="submit">Save Profile</button>

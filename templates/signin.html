@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="add_styles.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="signin.html">Sign In</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="add_patient.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Sign In</h1>
+        <form action="#" method="post">
+            <label for="role">Select Role:</label>
+            <select id="role" name="role" required>
+                <option value="doctor">Doctor</option>
+                <option value="patient">Patient</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+
+</body>
+</html>
