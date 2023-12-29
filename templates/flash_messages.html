@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Messages</title>
+    <!-- Add your CSS styles here (if any) -->
+</head>
+<body>
+    <h1>Flash Messages</h1>
+
+    <!-- Display flash messages -->
+    {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+                <li class="{{ message[1] }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No flash messages to display.</p>
+    {% endif %}
+</body>
+</html>
