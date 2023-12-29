@@ -9,11 +9,6 @@ WHERE UserName=%s AND Password=%s'
 'SELECT DepartmentName
 FROM Departments'
 
-INSERT INTO Departments (DepartmentID, DepartmentName, Description)
-VALUES (552, 'EM', 'for ...');
-
-INSERT INTO "Departments" ("DepartmentID","DepartmentName", "Description")
-VALUES (552, 'EM', 'Emergency Department');
 
 INSERT INTO Departments (DepartmentID,DepartmentName, Description)
 VALUES (140, 'EY', 'eyes Department');

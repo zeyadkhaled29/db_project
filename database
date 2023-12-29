@@ -1,19 +1,10 @@
 CREATE DATABASE hospital;
 \c hospital;
 
-CREATE TABLE Doctors (
-    DoctorID SERIAL NOT NULL CONSTRAINT Doctors_pk PRIMARY KEY,
-    Email bpchar NOT NULL,
-    FirstName VARCHAR NOT NULL,
-    Gender CHAR NOT NULL,
-    DateOfBirth DATE NOT NULL,
-    LastName VARCHAR NOT NULL,
-    City VARCHAR NOT NULL,
-    Street VARCHAR NOT NULL,
-    DoorNumber INTEGER NOT NULL,
-    PhoneNumber INTEGER NOT NULL,
-    DepartmentID INTEGER,
-    CONSTRAINT Doctors_Departments_DepartmentID_fk FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID)
+CREATE TABLE Departments (
+    DepartmentID INTEGER NOT NULL CONSTRAINT Departments_pk PRIMARY KEY,
+    DepartmentName VARCHAR NOT NULL,
+    Description VARCHAR NOT NULL
 );
 
 CREATE TABLE Patients (
@@ -24,7 +15,9 @@ CREATE TABLE Patients (
     DateOfBirth DATE NOT NULL,
     City VARCHAR NOT NULL,
     Street VARCHAR NOT NULL,
-    DoorNumber INTEGER NOT NULL
+    PatientImage VARCHAR(100),
+    PhoneNumber VARCHAR(50) UNIQUE,
+    DoorNumber INTEGER 
 );
 
 CREATE TABLE Prescriptions (
@@ -34,13 +27,7 @@ CREATE TABLE Prescriptions (
     Dosage VARCHAR NOT NULL
 );
 
-CREATE TABLE Appointments (
-    AppointmentDate DATE NOT NULL,
-    AppointmentID INTEGER NOT NULL CONSTRAINT Appointments_pk PRIMARY KEY,
-    Purpose VARCHAR NOT NULL,
-    PatientID INTEGER NOT NULL CONSTRAINT Appointments_Patients_PatientID_fk REFERENCES Patients (PatientID),
-    DoctorID INTEGER NOT NULL CONSTRAINT Appointments_Doctors_DoctorID_fk REFERENCES Doctors (DoctorID)
-);
+
 
 CREATE TABLE Examinations (
     ExamID INTEGER NOT NULL CONSTRAINT Examinations_pk PRIMARY KEY,
@@ -49,10 +36,29 @@ CREATE TABLE Examinations (
     ExamDate DATE NOT NULL
 );
 
-CREATE TABLE Departments (
-    DepartmentID INTEGER NOT NULL CONSTRAINT Departments_pk PRIMARY KEY,
-    DepartmentName VARCHAR NOT NULL,
-    Description VARCHAR NOT NULL
+
+
+CREATE TABLE Doctors (
+    DoctorID SERIAL NOT NULL CONSTRAINT Doctors_pk PRIMARY KEY,
+    Email bpchar NOT NULL,
+    FirstName VARCHAR NOT NULL,
+    Gender CHAR NOT NULL,
+    DateOfBirth DATE NOT NULL,
+    LastName VARCHAR NOT NULL,
+    City VARCHAR NOT NULL,
+    Street VARCHAR NOT NULL,
+    PhoneNumber INTEGER NOT NULL,
+    DepartmentID INTEGER,
+    DoctorImage VARCHAR(100),
+    CONSTRAINT Doctors_Departments_DepartmentID_fk FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID)
+);
+
+CREATE TABLE Appointments (
+    AppointmentDate DATE NOT NULL,
+    AppointmentID INTEGER NOT NULL CONSTRAINT Appointments_pk PRIMARY KEY,
+    Purpose VARCHAR NOT NULL,
+    PatientID INTEGER NOT NULL CONSTRAINT Appointments_Patients_PatientID_fk REFERENCES Patients (PatientID),
+    DoctorID INTEGER NOT NULL CONSTRAINT Appointments_Doctors_DoctorID_fk REFERENCES Doctors (DoctorID)
 );
 
 CREATE TABLE doctorsphone (

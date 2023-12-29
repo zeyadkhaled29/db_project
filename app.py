@@ -148,7 +148,7 @@ def add_doctor():
                 cursor.execute('INSERT INTO Doctors_accounts (DoctorID,UserName,Password) values(%s,%s,%s)',
                                 (DoctorID,username,password))
                 database_hospital.commit()
-                message="You have successfully added the new doctor.username:"+username+"  password: "+password
+                message="You have successfully signed up and that is your username"+username+"  password: "+password
     return render_template('add_doctor.html',msg=message)
 
 
@@ -156,6 +156,52 @@ def add_doctor():
 def flash_messages():
     messages = get_flashed_messages()
     return render_template('flash_messages.html', messages=messages)
+
+
+@app.route('/new_patient',methods=['GET', 'POST'])
+def new_patient():
+    message = ''
+    if request.method == 'POST':
+        # get the data from the form
+        first_name = request.form.get("first-name")
+        last_name = request.form.get("last-name")
+        gender = request.form.get("gender")
+        city = request.form.get("email")
+        street = request.form.get("password")
+        # Extract birth date from the form
+        birth_date_str = request.form.get('birth_date')
+        # Convert the string to a datetime.date object
+        birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d').date()
+        phone_number=request.form.get("phone-number")
+        password=request.form.get("password")
+        if phone_number:
+            cursor.execute('SELECT PhoneNumber FROM Patients WHERE PhoneNumber = %s', (phone_number,))
+            if cursor.fetchone():
+                message = 'The phone number is linked to another account'
+            else:
+                cursor.execute(
+                    'INSERT INTO Patients(FirstName, LastName, Gender , City  ,Street ,DateOfBirth,PhoneNumber  ) VALUES (%s, %s, %s , %s  ,%s ,%s,%s  )',
+                    (first_name, last_name, gender, city, street,birth_date,phone_number))
+                database_hospital.commit()
+                cursor.execute('SELECT PatientID FROM Patients WHERE PhoneNumber=%s',(phone_number,))
+                PatientID = str(dict(cursor.fetchone())['patientid'])
+                if 'profile_image' in request.files:
+                    f = request.files['profile_image']
+                    file_data = f.filename.split(".")
+                    filename = PatientID + "." + file_data[1]
+                    file_path = os.path.join(app.config['UPLOAD_PATIENT_IMG'], filename)
+                    f.save(os.path.join(app.config['UPLOAD_PATIENT_IMG'], filename))
+                    cursor.execute('UPDATE Patients  SET PatientImage = %s WHERE PatientID= %s', (file_path, PatientID))
+                    database_hospital.commit()
+                username="patient-"+PatientID
+                cursor.execute('INSERT INTO Patients_accounts (PatientID,UserName,Password) values(%s,%s,%s)',
+                                (PatientID,username,password))
+                database_hospital.commit()
+                message="You have successfully create aacount doctor.username:"+username
+
+    return render_template("new_patient.html",msg=message)
+
+
 
 
   
