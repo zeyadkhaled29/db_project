@@ -1,0 +1,7 @@
+'SELECT UserName 
+FROM =%s
+WHERE UserName=%s AND Password=%s'
+
+'SELECT * 
+FROM =%s
+WHERE UserName=%s AND Password=%s'
