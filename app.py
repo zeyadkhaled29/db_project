@@ -15,6 +15,8 @@ app.config['UPLOAD_DOC_IMG'] = upload_doctor_img
 upload_patient_img = os.path.join('static', 'patients_images')
 app.config['UPLOAD_PATIENT_IMG'] = upload_patient_img
 
+
+
 app.secret_key = 'xyz2929'
 database_hospital = psycopg2.connect(
     database='hospital',
@@ -33,12 +35,14 @@ def generate_password():
 
 
 
-    
+
+
 
 
 @app.route('/')
 def index():
     return render_template('main.html')
+
 
 
 @app.route('/sign_in', methods=['GET', 'POST'])
@@ -81,9 +85,9 @@ def sign_in():
                            '''.format(account_type), (user_name, password))
                 info = cursor.fetchone()
                 session['user_account'] = dict(info)
-                if account_type == 'Doctors':
+                if account_type == 'doctors':
                     return redirect('/doctor_profile')
-                elif account_type == 'Patients':
+                elif account_type == 'patients':
                     return redirect('/patient_profile')
                 else:
                     return redirect('/admin_page')
@@ -96,6 +100,7 @@ def sign_in():
 @app.route('/add_doctor', methods=['POST','GET'])
 def add_doctor():
     message = ''
+    print(session.get('logged_in') , session.get('user_type'))
     # Check if the user is logged in and is an admin
     if not session.get('logged_in') or session.get('user_type') != 'admin':
         flash('You do not have permission to access this page.', 'error')
