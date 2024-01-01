@@ -59,10 +59,10 @@ def sign_in():
             prefix=user_name.split('-')[0]
             if prefix == 'doc':
                 account_type='doctors'
-                session['user_type'] ='Doctor'
+                session['user_type'] ='doctor'
             elif prefix == 'patient':
                 account_type='patients'
-                session['user_type'] ='Patient'
+                session['user_type'] ='patient'
             elif prefix == 'admin':
                 account_type='admins'
                 session['user_type'] ='admin'
@@ -176,8 +176,8 @@ def new_patient():
         first_name = request.form.get("first-name")
         last_name = request.form.get("last-name")
         gender = request.form.get("gender")
-        city = request.form.get("email")
-        street = request.form.get("password")
+        city = request.form.get("city")
+        street = request.form.get("street")
         # Extract birth date from the form
         birth_date_str = request.form.get('birth_date')
         # Convert the string to a datetime.date object
@@ -211,6 +211,19 @@ def new_patient():
 
     return render_template("new_patient.html",msg=message)
 
+
+
+@app.route('/patient_profile')
+def patient_profile():
+    if  session.get('logged_in') and session.get('user_type') == 'Patient':
+        patient_id=session['user_account']['patientid']
+        cursor.execute(''' SELECT *
+                    FROM Patients 
+                    WHERE PatientID=%s;''' ,(patient_id,))
+        info = cursor.fetchone()
+        if info:
+            session['patient_info'] = dict(info)
+    return render_template('patient.html')
 
 
 

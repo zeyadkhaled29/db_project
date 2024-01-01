@@ -16,42 +16,33 @@
     </nav>
 </header>
 <body>
+    {% if session.get('logged_in') %}
+        <div class="doctor-container">
+            <div class="doctor-profile">
+                <h1>Patient Profile</h1>
 
-    <div class="doctor-container">
-        <div class="doctor-profile">
-            <h1>Patient Profile</h1>
+                <section class="main-info">
+                    <h2>Main Information</h2>
+                    <label>Patient ID: {{session.patient_info.patientid }}</label>
+                </section>
+                <section class="personal-info">
+                    <h2>Personal Information</h2>
+                    <label>First Name: {{session.patient_info.firstname }}</label>
 
-            <section class="main-info">
-                <h2>Main Information</h2>
-                <label>Patient ID:</label>
-                <p>DOC001</p>
-            </section>
+                    <label>Last Name: {{session.patient_info.lastname }}</label>
 
-            <section class="personal-info">
-                <h2>Personal Information</h2>
-                <label>First Name:</label>
-                <p>John</p>
+                    <label>Birth Date: {{session.patient_info.dateofbirth }}</label>
 
-                <label>Last Name:</label>
-                <p>Doe</p>
+                    <label>Gender: {{session.patient_info.gender }}</label>
+                </section>
 
-                <label>Birth Date:</label>
-                <p>1980-01-01</p>
-
-                <label>Gender:</label>
-                <p>Male</p>
-            </section>
-
-            <section class="contact-info">
-                <h2>Contact Information</h2>
-                <label>Phone Number:</label>
-                <p>123-456-7890</p>
-
-                <label>Address:</label>
-                <p>123, 7th district, Giza</p>
-            </section>
+                <section class="contact-info">
+                    <h2>Contact Information</h2>
+                    <label>Phone Number: {{session.patient_info.phonenumber }}</label>
+                    <label>Address: {{session.patient_info.street , session.patient_info.city }}</label>
+                </section>
+            </div>
         </div>
-    </div>
-
+    {% endif %}
 </body>
 </html>
