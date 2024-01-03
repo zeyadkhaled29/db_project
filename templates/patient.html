@@ -5,17 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patients</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/add_styles.css') }}">
+    <style>
+        header {
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin: 0 10px;
+        }
+        .sign-in a,
+        .sign-up a,
+        .contact-us a,
+        .home-page a {
+            text-decoration: none;
+            color: #fff; /* white text color */
+            padding: 8px 16px;
+            border-radius: 5px;
+            background-color: #007bff; /* blue background color */
+        }
+
+        .home-page {
+            margin-top: 20px; /* Adjust margin as needed */
+        }
+    </style>
 </head>
-<header>
-    <nav>
-        <ul>
-            <li><a href="sign_in.html">Sign In</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="add_patient.html">Sign Up</a></li>
-        </ul>
-    </nav>
-</header>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li class="sign-in"><a href="sign_in.html">Sign In</a></li>
+                <li class="sign-up"><a href="add_patient.html">Sign Up</a></li>
+                <li class="contact-us"><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
     {% if session.get('logged_in') %}
         <div class="doctor-container">
             <div class="doctor-profile">
@@ -44,5 +76,8 @@
             </div>
         </div>
     {% endif %}
+    <div class="home-page">
+        <a href="{{ url_for('main') }}">Home Page</a>
+    </div>
 </body>
 </html>
