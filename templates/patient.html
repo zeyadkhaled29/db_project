@@ -24,7 +24,7 @@
         }
         .sign-in a,
         .sign-up a,
-        .contact-us a,
+         .contact-us a,
         .home-page a {
             text-decoration: none;
             color: #fff; /* white text color */
@@ -32,7 +32,6 @@
             border-radius: 5px;
             background-color: #007bff; /* blue background color */
         }
-
         .home-page {
             margin-top: 20px; /* Adjust margin as needed */
         }
@@ -77,7 +76,7 @@
         </div>
     {% endif %}
     <div class="home-page">
-        <a href="{{ url_for('main') }}">Home Page</a>
+        <a href="{{ url_for('index') }}">Main Page</a>
     </div>
 </body>
 </html>
