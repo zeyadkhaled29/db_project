@@ -53,7 +53,8 @@ def sign_in():
         user_name=request.form.get("user-name")
         password=request.form.get("password")
         account_type=''
-        #The format of user name [doc-000,patient-000,admin-000] 
+        #The format of user name [doc-0
+        # 00,patient-000,admin-000] 
         #doc for doctors ,patient for patient ,admin for admins
         if user_name and password:
             prefix=user_name.split('-')[0]
@@ -315,5 +316,31 @@ def my_calendar(doctor_id):
     return render_template('calendar.html', events=event_data)
 
 
+
+
+@app.route('/my_patients/<int:doctor_id>')
+def my_patients(doctor_id):
+    cursor.execute('''SELECT *
+                   FROM Appointments INNER JOIN Patients  ON Appointments.patientid = Patients.patientid WHERE DoctorID =%s ''',(doctor_id,))
+    patients_appointments= cursor.fetchall()
+    patients = [{'id': f"{patient_appointment['patientid']}",
+                'name': f"{patient_appointment['firstname']}  {patient_appointment['lastname']}",
+                'image' : f"{patient_appointment['patientimage']}"}
+                  for patient_appointment in patients_appointments]
+    return render_template('my_patients.html',patients=patients)
+
+
+
+@app.route('/show_history/<int:patient_id>')
+def show_history (patient_id):
+    return patient_id
+
+@app.route('/add_to_history/<int:patient_id>')
+def add_to_history (patient_id):
+    pass
+
+@app.route('/add_prescription/<int:patient_id>')
+def add_prescription (patient_id):
+    pass
 
   

@@ -63,7 +63,8 @@ CREATE TABLE IF NOT EXISTS Appointments (
     PatientID INTEGER NOT NULL CONSTRAINT Appointments_Patients_PatientID_fk REFERENCES Patients (PatientID),
     DoctorID INTEGER NOT NULL CONSTRAINT Appointments_Doctors_DoctorID_fk REFERENCES Doctors (DoctorID),
     available BOOLEAN DEFAULT FALSE
-)
+);
+
 CREATE TABLE doctorsphone (
     PhoneNumber INTEGER NOT NULL,
     DoctorID INTEGER NOT NULL CONSTRAINT doctorsphone_Doctors_DoctorID_fk REFERENCES Doctors (DoctorID),
