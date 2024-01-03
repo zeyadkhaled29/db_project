@@ -19,3 +19,5 @@ VALUES (140, 'EY', 'eyes Department');
 
 INSERT INTO Admins_accounts (UserName,password)
 VALUES ('admin-1', '2929');
+
+DROP DATABASE hospital;

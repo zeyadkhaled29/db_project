@@ -227,4 +227,23 @@ def patient_profile():
 
 
 
+@app.route('/find_doctor' , methods=['POST','GET'])
+def find_doctor():
+    if request.method == 'POST':
+        department_name=request.form.get('department_name')
+        doctor_name=request.form.get('doctor_name')
+        first_name=doctor_name.split()[0]
+        last_name=doctor_name.split()[1]
+        cursor.execute('''SELECT *
+                       FROM Doctors
+                       INNER JOIN Departments ON (DepartmentID)
+                       WHERE DepartmentName LIKE %s AND( (FirstName LIKE %s AND LastName LIKE %s ) OR %s)
+                       ''',(department_name,first_name,last_name,doctor_name==""))
+        doctors = cursor.fetchall()
+        return doctors
+    return render_template("find_doctor.html")
+
+
+
+
   

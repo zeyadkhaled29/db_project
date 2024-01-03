@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Doctor</title>
+</head>
+<body>
+    <h1>Find Doctor</h1>
+    <form action="/find_doctor" method="post">
+        <label for="department">Choose a Department:</label>
+        <select name="department_name" id="department_name">
+            <option value="Internal Medicine">Internal Medicine Department</option>
+            <option value="Ophthalmology">Ophthalmology Department</option>
+        </select>
+        <label for="doctor_name">Write doctor name:</label>
+        <input type="text" id="doctor_name" name="doctor_name" >
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>
