@@ -23,7 +23,7 @@ database_hospital = psycopg2.connect(
     port=5432,
     host='localhost',
     user='postgres',
-    password='2929'
+    password='root'
 )
 cursor = database_hospital.cursor(cursor_factory=psycopg2.extras.DictCursor)
 

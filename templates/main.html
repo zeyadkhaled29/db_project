@@ -5,17 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff; 
+        }
+
+        div {
+            text-align: center;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Welcome to the Hospital System</h1>
+    <header>
+        <h1>Welcome to Al-Qasr Al-Aini Hospital</h1>
+    </header>
 
     <div>
         <h2>Choose an option:</h2>
-        <ul>
-            <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
-            <li><a href="{{ url_for('new_patient') }}">Add New Patient</a></li>
-        </ul>
+        <a href="{{ url_for('sign_in') }}" class="button">Sign In</a>
+        <a href="{{ url_for('new_patient') }}" class="button">Add New Patient</a>
     </div>
 
 </body>
