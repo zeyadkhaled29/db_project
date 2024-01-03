@@ -4,30 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Appointment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_styles.css') }}">
 </head>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/sign_in">Sign In</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="add_patient.html">Sign Up</a></li>
+        </ul>
+    </nav>
+</header>
 <body>
-    <h1>Book Appointment</h1>
-    <form action="/book_doctor/{{ doctor_id }}" method="post">
-        <label for="appointment_date">Appointment Date:</label>
-        <input type="date" id="appointment_date" name="appointment_date" required>
 
-        <label for="start_hour">Start Hour:</label>
-        <input type="time" id="start_hour" name="start_hour" required>
+    <div class="container">
+        <h1>Book Appointment</h1>
+        <form action="/book_doctor/{{ doctor_id }}" method="post" class="appointment-form">
+            
+            <label for="appointment_date">Appointment Date:</label>
+            <input type="date" id="appointment_date" name="appointment_date" required>
 
-        <label for="end_hour">End Hour:</label>
-        <input type="time" id="end_hour" name="end_hour" required>
+            
+            <label for="start_hour">Start Hour:</label>
+            <input type="time" id="start_hour" name="start_hour" required>
 
-        <label for="purpose">Purpose:</label>
-        <input type="text" id="purpose" name="purpose" required>
+            
+            <label for="end_hour">End Hour:</label>
+            <input type="time" id="end_hour" name="end_hour" required>
 
-        <label for="patient_id">Patient ID:</label>
-        {% if session.user_type =='patient' %}
-            <input type="text" id="patient_id" name="patient_id" value={{session.patient_info.patientid}}>
-        {% else %}
-        <input type="text" id="patient_id" name="patient_id" required>
-        {% endif %}
+            
+            <label for="purpose">Purpose:</label>
+            <input type="text" id="purpose" name="purpose" required>
 
-        <button type="submit">Book Appointment</button>
-    </form>
+            <label for="patient_id">Patient ID:</label>
+            {% if session.user_type =='patient' %}
+                <input type="text" id="patient_id" name="patient_id" value={{session.patient_info.patientid}}>
+            {% else %}
+                <input type="text" id="patient_id" name="patient_id" required>
+            {% endif %}
+            
+            <!-- Submit Button -->
+            <button type="submit">Book Appointment</button>
+        </form>
+    </div>
+
+    <script>
+        
+    </script>
+
 </body>
 </html>
