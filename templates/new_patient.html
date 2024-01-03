@@ -95,7 +95,7 @@
         <form id="registration-form" action="/new_patient" method="post" enctype="multipart/form-data">
             <label for="file" class="file-upload-button">
                 <span>Upload Image</span>
-                <input type="file" id="file" name="profile_image" onchange="previewImage(this)" />
+                <input type="file" id="profile_image" name="profile_image" onchange="previewImage(this)" />
             </label>
             <div class="form-group">
                 <label for="first-name">First Name</label>
@@ -113,21 +113,28 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="phone-number">Phone Number</label>
+                <label for="phoneNumber">Phone Number:</label>
                 <input type="tel" id="phone-number" name="phone-number" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <label for="birth_date" class="form-group">
-                <span>Birth Date</span>
+            <div class="form-group">
+                <label for="birthDate">Birth Date:</label>
                 <input type="date" id="birth_date" name="birth_date" required>
-            </label>
+            </div>
+
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input  id="city" name="city" require>
+            </div>
+
+            <div class="form-group">
+                <label for="street">Street:</label>
+                <textarea id="street" name="street" required></textarea>
+            </div>
+
             <!-- File input for image upload -->
             <button type="submit" class="upload-button">Register</button>
         </form>

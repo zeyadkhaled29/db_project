@@ -53,14 +53,17 @@ CREATE TABLE Doctors (
     CONSTRAINT Doctors_Departments_DepartmentID_fk FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID)
 );
 
-CREATE TABLE Appointments (
+CREATE TABLE IF NOT EXISTS Appointments (
+    AppointmentID SERIAL NOT NULL CONSTRAINT Appointments_pk PRIMARY KEY,
     AppointmentDate DATE NOT NULL,
-    AppointmentID INTEGER NOT NULL CONSTRAINT Appointments_pk PRIMARY KEY,
+    duration INTEGER,
+    start_hour TIME NOT NULL,
+    end_hour TIME NOT NULL,
     Purpose VARCHAR NOT NULL,
     PatientID INTEGER NOT NULL CONSTRAINT Appointments_Patients_PatientID_fk REFERENCES Patients (PatientID),
-    DoctorID INTEGER NOT NULL CONSTRAINT Appointments_Doctors_DoctorID_fk REFERENCES Doctors (DoctorID)
-);
-
+    DoctorID INTEGER NOT NULL CONSTRAINT Appointments_Doctors_DoctorID_fk REFERENCES Doctors (DoctorID),
+    available BOOLEAN DEFAULT FALSE
+)
 CREATE TABLE doctorsphone (
     PhoneNumber INTEGER NOT NULL,
     DoctorID INTEGER NOT NULL CONSTRAINT doctorsphone_Doctors_DoctorID_fk REFERENCES Doctors (DoctorID),

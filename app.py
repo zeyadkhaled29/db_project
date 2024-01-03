@@ -159,7 +159,7 @@ def add_doctor():
                                 (DoctorID,username,password))
                 database_hospital.commit()
                 message="You have successfully signed up and that is your username"+username+"  password: "+password
-    return render_template('add_doctor.html',msg=message)
+    return render_template('new_doctor.html',msg=message)
 
 
 @app.route('/flash_messages')
@@ -207,7 +207,7 @@ def new_patient():
                 cursor.execute('INSERT INTO Patients_accounts (PatientID,UserName,Password) values(%s,%s,%s)',
                                 (PatientID,username,password))
                 database_hospital.commit()
-                message="You have successfully create aacount doctor.username:"+username
+                message="You have successfully create account  your username:"+username
 
     return render_template("new_patient.html",msg=message)
 
@@ -215,7 +215,8 @@ def new_patient():
 
 @app.route('/patient_profile')
 def patient_profile():
-    if  session.get('logged_in') and session.get('user_type') == 'Patient':
+    if  session.get('logged_in') and session.get('user_type') == 'patient':
+        
         patient_id=session['user_account']['patientid']
         cursor.execute(''' SELECT *
                     FROM Patients 
@@ -256,6 +257,52 @@ def find_doctor():
 
     # If the request method is not POST, render the search form
     return render_template("find_doctor.html")
+
+
+
+
+
+
+@app.route('/book_doctor/<int:doctor_id>', methods=['GET', 'POST'])
+def book_doctor(doctor_id):
+    msg=''
+    if request.method == 'POST':
+        appointment_date = request.form['appointment_date']
+        start_hour = request.form['start_hour']
+        end_hour = request.form['end_hour']
+        purpose = request.form['purpose']
+        patient_id = request.form['patient_id']
+
+        # Check doctor's availability
+        if is_doctor_available(doctor_id, appointment_date, start_hour, end_hour):
+            # Insert new appointment
+            insert_appointment(appointment_date, start_hour, end_hour, purpose, patient_id, doctor_id)
+            return render_template('book_appointment.html',message='You book successfully')
+        else:
+            return render_template('book_appointment.html',message='Doctor is not available during the specified time.')
+    # Render the form to book an appointment
+    return render_template('book_appointment.html', doctor_id=doctor_id)
+
+def is_doctor_available(doctor_id, appointment_date, start_hour, end_hour):
+    # Check if there are any overlapping appointments for the selected doctor during the specified time range
+    cursor.execute('''
+        SELECT *
+        FROM Appointments
+        WHERE DoctorID = %s
+          AND AppointmentDate = %s
+          AND NOT (end_hour <= %s OR start_hour >= %s)
+    ''', (doctor_id, appointment_date, start_hour, end_hour))
+    overlapping_appointments = cursor.fetchall()
+    return not overlapping_appointments
+
+def insert_appointment(appointment_date, start_hour, end_hour, purpose, patient_id, doctor_id):
+    # Insert a new appointment record into the Appointments table
+    cursor.execute('''
+        INSERT INTO Appointments (AppointmentDate, start_hour, end_hour, Purpose, PatientID, DoctorID)
+        VALUES (%s, %s, %s, %s, %s, %s)
+    ''', (appointment_date, start_hour, end_hour, purpose, patient_id, doctor_id))
+    database_hospital.commit()
+
 
 
 

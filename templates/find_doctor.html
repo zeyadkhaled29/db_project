@@ -46,7 +46,7 @@
                     <h3>{{ doctor[2] }} {{ doctor[5] }}</h3>
                     <p>Phone: {{ doctor[8] }}</p>
                 </div>
-                <a href="https://www.facebook.com/" class="book-link">Book Appointment</a>
+                <a href="{{ url_for('book_doctor', doctor_id=doctor[0]) }}">Book Appointment</a>
             </div>
         {% endfor %}
     </div>
