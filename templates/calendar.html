@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <!-- FullCalendar and jQuery CDN links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+</head>
+<body>
+    <h1>Calendar</h1>
+    <!-- FullCalendar container -->
+    <div id="calendar"></div>
+    <!-- FullCalendar initialization script -->
+    <!-- FullCalendar initialization script -->
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                defaultDate: '2024-01-01',
+                navLinks: true,
+                editable: true,
+                eventLimit: true,
+                events: {{ events | tojson | safe }},
+                eventRender: function(event, element) {
+                    var titleWithLink = '<a href="' + event.url + '">' + event.title + '</a>';
+                    var startTime = moment(event.start).format('h:mm A'); // Format the time
+                    var endTime =moment(event.end).format('h:mm A'); // Format the time
+                    element.find('.fc-title').html(titleWithLink + '<br>' + startTime +":"+endTime);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

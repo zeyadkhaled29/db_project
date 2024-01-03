@@ -304,6 +304,16 @@ def insert_appointment(appointment_date, start_hour, end_hour, purpose, patient_
     database_hospital.commit()
 
 
+@app.route('/my_calendar/<int:doctor_id>')
+def my_calendar(doctor_id):
+    cursor.execute('SELECT * FROM Appointments WHERE DoctorID =%s ',(doctor_id,))
+    meetings = cursor.fetchall()
+    event_data = [{'title': f"Appointments with Patient {meeting['patientid']}",
+                   'start': f"{meeting['appointmentdate']}T{meeting['start_hour']}",
+                   'end': f"{meeting['appointmentdate']}T{meeting['end_hour']}"}
+                  for meeting in meetings]
+    return render_template('calendar.html', events=event_data)
+
 
 
   
