@@ -227,22 +227,35 @@ def patient_profile():
 
 
 
-@app.route('/find_doctor' , methods=['POST','GET'])
+
+
+@app.route('/find_doctor', methods=['POST', 'GET'])
 def find_doctor():
     if request.method == 'POST':
-        department_name=request.form.get('department_name')
-        doctor_name=request.form.get('doctor_name')
-        first_name=doctor_name.split()[0]
-        last_name=doctor_name.split()[1]
-        cursor.execute('''SELECT *
-                       FROM Doctors
-                       INNER JOIN Departments ON (DepartmentID)
-                       WHERE DepartmentName LIKE %s AND( (FirstName LIKE %s AND LastName LIKE %s ) OR %s)
-                       ''',(department_name,first_name,last_name,doctor_name==""))
-        doctors = cursor.fetchall()
-        return doctors
-    return render_template("find_doctor.html")
+        department_name = request.form.get('department_name')
+        doctor_name = request.form.get('doctor_name')
+        first_name = ''
+        last_name = ''
 
+        if doctor_name:
+            name_parts = doctor_name.split()
+            first_name = name_parts[0] if name_parts else ''
+            last_name = name_parts[1] if len(name_parts) > 1 else ''
+
+        # Use parameterized query to prevent SQL injection
+        cursor.execute('''
+            SELECT *
+            FROM Doctors
+            INNER JOIN Departments ON Doctors.departmentid = Departments.departmentid
+            WHERE DepartmentName LIKE %s AND ((FirstName LIKE %s AND LastName LIKE %s) OR %s)
+        ''', (f'%{department_name}%', f'%{first_name}%', f'%{last_name}%', doctor_name == ""))
+
+        doctors = cursor.fetchall()
+        # Render a template and pass the data to be displayed in the HTML
+        return render_template("find_doctor.html", doctors=doctors)
+
+    # If the request method is not POST, render the search form
+    return render_template("find_doctor.html")
 
 
 

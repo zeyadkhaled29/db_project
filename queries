@@ -21,3 +21,16 @@ INSERT INTO Admins_accounts (UserName,password)
 VALUES ('admin-1', '2929');
 
 DROP DATABASE hospital;
+
+
+INSERT INTO Departments (DepartmentID,DepartmentName, Description)
+VALUES (1, 'Internal Medicine Department', 'Internal Medicine Department');
+
+INSERT INTO Departments (DepartmentID,DepartmentName, Description)
+VALUES (2, 'Ophthalmology Department', 'Ophthalmology Department');
+
+INSERT INTO Doctors (Email,FirstName, Gender,DateOfBirth,LastName,City,Street,PhoneNumber,DepartmentID)
+VALUES ('aa@gmail.com', 'ahmed', 'M','2019-01-01','ali','giza','haram',0235820572,1);
+
+INSERT INTO Admins_accounts (UserName,Password)
+VALUES ('admin-1', '2929');

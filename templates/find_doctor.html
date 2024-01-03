@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Doctor</title>
+    <style>
+        .doctor-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .doctor-image {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .doctor-details {
+            flex-grow: 1;
+        }
+
+        .book-link {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Find Doctor</h1>
@@ -14,8 +34,24 @@
             <option value="Ophthalmology">Ophthalmology Department</option>
         </select>
         <label for="doctor_name">Write doctor name:</label>
-        <input type="text" id="doctor_name" name="doctor_name" >
+        <input type="text" id="doctor_name" name="doctor_name">
         <button type="submit">Search</button>
     </form>
+    {% if doctors %}
+    <div>
+        {% for doctor in doctors %}
+            <div class="doctor-container">
+                <img src="{{ doctor[10]  }}" alt="Doctor Image" class="doctor-image" width="50">
+                <div class="doctor-details">
+                    <h3>{{ doctor[2] }} {{ doctor[5] }}</h3>
+                    <p>Phone: {{ doctor[8] }}</p>
+                </div>
+                <a href="https://www.facebook.com/" class="book-link">Book Appointment</a>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No doctors found.</p>
+    {% endif %}
 </body>
 </html>
