@@ -160,7 +160,7 @@ def add_doctor():
                                 (DoctorID,username,password))
                 database_hospital.commit()
                 message="You have successfully signed up and that is your username"+username+"  password: "+password
-    return render_template('new_doctor.html',msg=message)
+    return render_template('add_doctor.html',msg=message)
 
 
 @app.route('/flash_messages')
@@ -465,3 +465,20 @@ def my_appointments (patient_id):
                     }
                    for appointment in [appointments]]
         return render_template("my_appointments.html",patients_appointments=patients_appointments)
+    
+
+
+@app.route('/my_prescriptions/<int:patient_id>')
+def my_prescriptions (patient_id):
+    cursor.execute('''SELECT *
+                   FROM prescription WHERE PatientID =%s ''',(patient_id,))
+    prescriptions = cursor.fetchone()
+    if not prescriptions:
+        return render_template('my_prescriptions.html',msg="No prescriptions Found!")
+    else:
+        patients_prescriptions = [{'Disease': f"{prescription['disease']}",
+                    'Medicine': f"{prescription['medicine']}",
+                    'description': f"{prescription['description']}"
+                    }
+                   for prescription in [prescriptions]]
+        return render_template("my_prescriptions.html",patients_prescriptions=patients_prescriptions)

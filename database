@@ -20,12 +20,7 @@ CREATE TABLE Patients (
     DoorNumber INTEGER 
 );
 
-CREATE TABLE Prescriptions (
-    Frequency DOUBLE PRECISION NOT NULL,
-    PrescriptionID INTEGER NOT NULL CONSTRAINT Prescriptions_pk PRIMARY KEY,
-    ActiveIngredient VARCHAR NOT NULL,
-    Dosage VARCHAR NOT NULL
-);
+
 
 
 
@@ -118,10 +113,7 @@ CREATE TABLE Patients_accounts (
     CONSTRAINT Patients_accounts_Patients_PatientID_fk FOREIGN KEY (PatientID) REFERENCES Patients (PatientID)
 );
 
-CREATE TABLE Admins_accounts (
-    UserName VARCHAR(50) PRIMARY KEY,
-    Password VARCHAR(255) NOT NULL
-);
+
 
 CREATE TABLE prescription (
     PrescriptionID SERIAL PRIMARY KEY,
@@ -143,4 +135,9 @@ CREATE TABLE medical_history (
     description TEXT,
     CONSTRAINT medical_history_Patients_PatientID_fk FOREIGN
     KEY (PatientID) REFERENCES Patients (PatientID)
+);
+CREATE TABLE messages(
+    MessageID serial primary key,
+    sender_email VARCHAR NOT NULL,
+    description TEXT
 );

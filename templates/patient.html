@@ -1,120 +1,27 @@
+<!-- patient_profile.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patients</title>
+    <title>Patient Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_styles.css') }}">
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-
-        header {
-            padding: 30px 10px;
-            text-align: center;
-        }
-
-        nav {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-
-        nav li {
-            margin: 0 10px;
-        }
-
-        .nav-button {
-            text-decoration: none;
-            color: #eaeff5;
-            padding: 8px 16px;
-            border-radius: 5px;
-            background-color: hsla(209, 84%, 34%, 0.841);
-        }
-
-        .home-page a,
-        .logout a {
-            text-decoration: none;
-            color: #eaeff5;
-            padding: 8px 16px;
-            border-radius: 5px;
-            background-color: hsla(209, 84%, 34%, 0.841);
-        }
-
-        header label {
-            color: #2e66a3;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 50px;
-        }
-
-        .profile-container {
-            margin: 20px;
-            text-align: center;
-        }
-
-        .profile img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-
-        .profile table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .profile th, .profile td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .profile th {
-            background-color: #f2f2f2;
-            color: hsla(209, 84%, 34%, 0.841);
-            font-weight: bold;
-        }
-
-        .label {
-            font-weight: bold;
-        }
-
-        .home-page {
-            margin-top: 30px;
-            display: inline-block; /* Ensure it stays on the same line */
-        }
-
-        .logout {
-            margin-bottom: 20px;
-            display: inline-block; /* Ensure it stays on the same line */
-        }
+        /* Add any additional styling specific to the patient profile page here */
     </style>
 </head>
 <body>
+
     <header>
-        <label>Patient Profile</label>
         <nav>
             <ul>
-                <li><a class="nav-button" href="/sign_in" target="_blank">Sign In</a></li>
-                <li><a class="nav-button" href="/new_patient" target="_blank">Sign Up</a></li>
-                <li><a class="nav-button" href="/contact_us" target="_blank">Contact Us</a></li>
-                <li><a class="nav-button" href="/my_appointments/{{session.patient_info.patientid}}" target="_blank">My Appointments</a></li>
-                <li><a class="nav-button" href="/find_doctor" target="_blank">Find Doctors</a></li>
-                <li><a class="nav-button" href="#" target="_blank">My Prescription</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/sign_in" target="_blank">Sign In</a></li>
+                <li><a href="/new_patient" target="_blank">Sign Up</a></li>
+                <li><a href="/contact_us" target="_blank">Contact Us</a></li>
+                <li><a href="/my_appointments/{{session.patient_info.patientid}}" target="_blank">My Appointments</a></li>
+                <li><a href="/find_doctor" target="_blank">Find Doctors</a></li>
+                <li><a href="/my_prescriptions/{{session.patient_info.patientid}}" target="_blank">My Prescription</a></li>
                 <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
@@ -126,25 +33,16 @@
                 <div class="profile">
                     <img src="{{ session.patient_info.patientimage }}" alt="Patient Photo">
                     <label>First Name: {{ session.patient_info.firstname }}</label>
-
-                        <label>Last Name: {{ session.patient_info.lastname }}</label>
-
-                        <label>Birth Date: {{ session.patient_info.dateofbirth }}</label>
-
-                        <label>Gender: {{ session.patient_info.gender }}</label>
+                    <label>Last Name: {{ session.patient_info.lastname }}</label>
+                    <label>Birth Date: {{ session.patient_info.dateofbirth }}</label>
+                    <label>Gender: {{ session.patient_info.gender }}</label>
+                    <!-- Additional information from the patient table -->
+                    <label>City: {{ session.patient_info.city }}</label>
+                    <label>Street: {{ session.patient_info.street }}</label>
+                    <label>Phone Number: {{ session.patient_info.phonenumber }}</label>
                 </div>
             </div>
         </section>
-    {% endif %}
-
-    <div class="home-page">
-        <a href="/">Home Page</a>
-    </div>
-
-    {% if session.get('logged_in') %}
-        <div class="logout">
-            <a href="#">Log Out</a>
-        </div>
     {% endif %}
 </body>
 </html>
