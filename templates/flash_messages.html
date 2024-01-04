@@ -4,7 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flash Messages</title>
-    <!-- Add your CSS styles here (if any) -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: hsla(209, 84%, 34%, 0.841);
+        }
+
+        .flashes {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .flashes li {
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: bold;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .success {
+            background-color: #4CAF50;
+        }
+
+        .error {
+            background-color: #f44336;
+        }
+
+        .info {
+            background-color: #2196F3;
+        }
+
+        .warning {
+            background-color: #ff9800;
+        }
+
+        p {
+            text-align: center;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
     <h1>Flash Messages</h1>
@@ -13,7 +63,7 @@
     {% if messages %}
         <ul class="flashes">
             {% for message in messages %}
-                <li class="{{ message[1] }}">{{ message }}</li>
+                <li class="{{ message[1] }}">{{ message[0] }}</li>
             {% endfor %}
         </ul>
     {% else %}
@@ -21,3 +71,4 @@
     {% endif %}
 </body>
 </html>
+

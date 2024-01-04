@@ -4,13 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show Medical History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e66a3;
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #0d4480;
+        }
+
+        .patient-info {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        strong {
+            color: #2e66a3;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back-link a {
+            display: inline-block;
+            text-decoration: none;
+            color: #2e66a3;
+            font-weight: bold;
+            padding: 8px 16px;
+            border: 1px solid #2e66a3;
+            border-radius: 5px;
+            background-color: #fff;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .back-link a:hover {
+            background-color: #2e66a3;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <h1>Show Medical History</h1>
+
     {% if msg %}
-        <div>{{ msg }}</div>
+        <div class="message">{{ msg }}</div>
     {% else %}
-        <p>Patient ID: {{ patients_history[0]['PatientID'] }}</p>
+        <div class="patient-info">
+            <p><strong>Patient ID:</strong> {{ patients_history[0]['PatientID'] }}</p>
+        </div>
+
         {% if patients_history %}
             <ul>
                 {% for history_entry in patients_history %}
@@ -21,8 +89,12 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No Medical History Found!</p>
+            <p class="message">No Medical History Found!</p>
         {% endif %}
+
+        <div class="back-link">
+            <a href="/">Back to Home Page</a>
+        </div>
     {% endif %}
 </body>
 </html>

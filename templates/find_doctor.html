@@ -7,12 +7,20 @@
     <style>
         body {
             text-align: center; /* Center-align the content */
+            font-family: Arial, sans-serif; /* Use a common font */
+            background-color: #f4f4f4; /* Light background color */
+            margin: 0;
+            padding: 20px;
         }
 
         .doctor-container {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .doctor-image {
@@ -28,13 +36,15 @@
             margin-left: 10px;
         }
 
-        label, button, h1, a {
+        h1, label, button, a {
             color: hsla(209, 84%, 34%, 0.841); /* Change this to your desired color */
         }
 
         label {
             font-size: 1.2em; /* Increase the font size for labels */
             font-weight: bold; /* Make the font bold */
+            display: block;
+            margin: 10px 0;
         }
 
         h1 {
@@ -44,42 +54,63 @@
         button {
             background-color: hsla(209, 84%, 34%, 0.841); /* Set background color to blue */
             color: white; /* Set font color to white */
-            padding: 8px 16px; /* Add padding for better appearance */
+            padding: 12px 20px; /* Add padding for better appearance */
             border: none; /* Remove border */
             cursor: pointer;
+            border-radius: 5px;
+            font-size: 1em;
         }
 
         a {
-            display: block; /* Make the link a block-level element */
-            margin-top: 20px; /* Add space above the link */
+            display: inline-block; /* Make the link a block-level element */
+            margin-top: 10px; /* Add space above the link */
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: hsla(209, 84%, 34%, 0.841);
+            color: white;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        a:hover {
+            background-color: hsla(209, 84%, 24%, 0.841);
+        }
+
+        p {
+            margin: 20px 0;
+        }
+
+        select, input {
+            padding: 10px;
+            margin: 5px 0;
+            width: calc(100% - 20px); /* Adjusted width to make room for padding */
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
     <h1>Find Doctor</h1>
     <form action="/find_doctor" method="post">
-        <label for="department" style="font-size: 1.5em;">Choose a Department:</label>
+        <label for="department_name">Choose a Department:</label>
         <select name="department_name" id="department_name">
             <option value="Internal Medicine">Internal Medicine Department</option>
             <option value="Ophthalmology">Ophthalmology Department</option>
         </select>
-        <label for="doctor_name" style="font-size: 1.5em; font-weight: bold;">Write doctor name:</label>
-        <input type="text" id="doctor_name" name="doctor_name">
+        <label for="doctor_name">Write doctor name:</label>
+        <input type="text" id="doctor_name" name="doctor_name" required>
         <button type="submit">Search</button>
-        
-
     </form>
+
     {% if doctors %}
     <div>
         {% for doctor in doctors %}
             <div class="doctor-container">
-                <img src="{{ doctor[10]  }}" alt="Doctor Image" class="doctor-image" width="50">
+                <img src="{{ doctor[10] }}" alt="Doctor Image" class="doctor-image" width="50">
                 <div class="doctor-details">
                     <h3>{{ doctor[2] }} {{ doctor[5] }}</h3>
                     <p>Phone: {{ doctor[8] }}</p>
                 </div>
-                <a href="{{ url_for('book_doctor', doctor_id=doctor[0]) }}" style="background-color: hsla(209, 84%, 34%, 0.841); color: white; padding: 8px 16px; display: inline-block; text-decoration: none; border-radius: 4px;">Book Appointment</a>
-
+                <a href="{{ url_for('book_doctor', doctor_id=doctor[0]) }}" class="book-link">Book Appointment</a>
             </div>
         {% endfor %}
     </div>
