@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patients</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_styles.css') }}">
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
         }
 
         header {
-            padding: 30px 10px; 
+            padding: 30px 10px;
             text-align: center;
         }
 
@@ -20,7 +20,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 20px; 
+            margin-top: 20px;
         }
 
         nav ul {
@@ -34,30 +34,21 @@
             margin: 0 10px;
         }
 
-        .sign-in a,
-        .sign-up a,
-        .contact-us a,
-        .appointments a,
-        .find-doctors a,
-        .prescription a {
+        .nav-button {
             text-decoration: none;
             color: #eaeff5;
             padding: 8px 16px;
             border-radius: 5px;
-            background-color: #3917d3;
+            background-color: #2e66a3;
         }
-        
+
         .home-page a,
         .logout a {
             text-decoration: none;
             color: #eaeff5;
             padding: 8px 16px;
             border-radius: 5px;
-            background-color: #1826b9;
-        }
-        
-        .home-page {
-            margin-top: 30px;
+            background-color: #2e66a3;
         }
 
         header label {
@@ -66,36 +57,50 @@
             font-weight: bold;
             margin-bottom: 50px;
         }
-        .custom-color a {
-            background-color: #0d18e2; /* Change this to the desired gray color */
-        }
 
-        .doctor-container {
+        .profile-container {
             margin: 20px;
+            text-align: center;
         }
 
-        .doctor-profile table {
+        .profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .profile table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
 
-        .doctor-profile th, .doctor-profile td {
+        .profile th, .profile td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
 
-        .doctor-profile th {
+        .profile th {
             background-color: #f2f2f2;
-        }
-
-        .blue-bg {
             color: #0d4480;
+            font-weight: bold;
         }
 
         .label {
             font-weight: bold;
+        }
+
+        .home-page {
+            margin-top: 30px;
+            display: inline-block; /* Ensure it stays on the same line */
+        }
+
+        .logout {
+            margin-bottom: 20px;
+            display: inline-block; /* Ensure it stays on the same line */
         }
     </style>
 </head>
@@ -104,52 +109,41 @@
         <label>Patient Profile</label>
         <nav>
             <ul>
-                <li class="sign-in "><a class="button" href="/sign_in" target="_blank">Sign In</a></li>
-                <li class="sign-up "><a class="button" href="/new_patient" target="_blank">Sign Up</a></li>
-                <li class="contact-us "><a class="button" href="#" target="_blank">Contact Us</a></li>
-                <li class="appointments "><a class="button" href="#" target="_blank">My Appointments</a></li>
-                <li class="find-doctors "><a class="button" href="/find_doctor" target="_blank">Find Doctors</a></li>
-                <li class="prescription "><a class="button" href="#" target="_blank">My Prescription</a></li>
+                <li><a class="nav-button" href="/sign_in" target="_blank">Sign In</a></li>
+                <li><a class="nav-button" href="/new_patient" target="_blank">Sign Up</a></li>
+                <li><a class="nav-button" href="#" target="_blank">Contact Us</a></li>
+                <li><a class="nav-button" href="#" target="_blank">My Appointments</a></li>
+                <li><a class="nav-button" href="/find_doctor" target="_blank">Find Doctors</a></li>
+                <li><a class="nav-button" href="#" target="_blank">My Prescription</a></li>
             </ul>
-            
         </nav>
     </header>
+
     {% if session.get('logged_in') %}
-        <div class="doctor-container">
-            <div class="doctor-profile">
-                 <img src="{{session.patient_info.patientimage}}" alt="Patient Photo" class="patient-photo">
-                 
+        <div class="profile-container">
+            <div class="profile">
+                <img src="{{ session.patient_info.patientimage }}" alt="Patient Photo">
                 <table>
-                    <tr>
-                        <th class="blue-bg">Main Information</th>
-                        <td class="label">Patient ID:</td>
-                        <td>{{ session.patient_info.patientid }}</td>
-                    </tr>
-                    <tr>
-                        <th class="blue-bg">Personal Information</th>
-                        <td class="label">First Name:</td>
-                        <td>{{ session.patient_info.firstname }}</td>
-                        <td class="label">Last Name:</td>
-                        <td>{{ session.patient_info.lastname }}</td>
-                        <td class="label">Birth Date:</td>
-                        <td>{{ session.patient_info.dateofbirth }}</td>
-                        <td class="label">Gender:</td>
-                        <td>{{ session.patient_info.gender }}</td>
-                    </tr>
-                    <tr>
-                        <th class="blue-bg">Contact Information</th>
-                        <td class="label">Phone Number:</td>
-                        <td>{{ session.patient_info.phonenumber }}</td>
-                        <td class="label">Address:</td>
-                        <td colspan="2">{{ session.patient_info.street }}, {{ session.patient_info.city }}</td>
-                    </tr>
+                    {% for section, fields in session.patient_info.items() %}
+                        <tr>
+                            <th colspan="3">{{ section }}</th>
+                        </tr>
+                        {% for label, value in fields.items() %}
+                            <tr>
+                                <td class="label">{{ label }}:</td>
+                                <td>{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
                 </table>
             </div>
         </div>
     {% endif %}
+
     <div class="home-page">
-        <a href="/" >Main Page</a> 
+        <a href="/">Home Page</a>
     </div>
+
     {% if session.get('logged_in') %}
         <div class="logout">
             <a href="#">Log Out</a>
