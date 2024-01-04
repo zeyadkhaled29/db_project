@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Doctor</title>
     <style>
+        body {
+            text-align: center; /* Center-align the content */
+        }
+
         .doctor-container {
             display: flex;
             align-items: center;
@@ -23,19 +27,47 @@
         .book-link {
             margin-left: 10px;
         }
+
+        label, button, h1, a {
+            color: rgba(34, 34, 191, 0.66); /* Change this to your desired color */
+        }
+
+        label {
+            font-size: 1.2em; /* Increase the font size for labels */
+            font-weight: bold; /* Make the font bold */
+        }
+
+        h1 {
+            margin-bottom: 20px; /* Add space below the h1 element */
+        }
+
+        button {
+            background-color: rgb(59, 59, 188); /* Set background color to blue */
+            color: white; /* Set font color to white */
+            padding: 8px 16px; /* Add padding for better appearance */
+            border: none; /* Remove border */
+            cursor: pointer;
+        }
+
+        a {
+            display: block; /* Make the link a block-level element */
+            margin-top: 20px; /* Add space above the link */
+        }
     </style>
 </head>
 <body>
     <h1>Find Doctor</h1>
     <form action="/find_doctor" method="post">
-        <label for="department">Choose a Department:</label>
+        <label for="department" style="font-size: 1.5em;">Choose a Department:</label>
         <select name="department_name" id="department_name">
             <option value="Internal Medicine">Internal Medicine Department</option>
             <option value="Ophthalmology">Ophthalmology Department</option>
         </select>
-        <label for="doctor_name">Write doctor name:</label>
+        <label for="doctor_name" style="font-size: 1.5em; font-weight: bold;">Write doctor name:</label>
         <input type="text" id="doctor_name" name="doctor_name">
         <button type="submit">Search</button>
+        
+
     </form>
     {% if doctors %}
     <div>
@@ -46,7 +78,8 @@
                     <h3>{{ doctor[2] }} {{ doctor[5] }}</h3>
                     <p>Phone: {{ doctor[8] }}</p>
                 </div>
-                <a href="{{ url_for('book_doctor', doctor_id=doctor[0]) }}">Book Appointment</a>
+                <a href="{{ url_for('book_doctor', doctor_id=doctor[0]) }}" style="background-color: rgb(43, 43, 175); color: white; padding: 8px 16px; display: inline-block; text-decoration: none; border-radius: 4px;">Book Appointment</a>
+
             </div>
         {% endfor %}
     </div>
