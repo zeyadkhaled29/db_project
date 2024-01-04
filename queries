@@ -39,3 +39,7 @@ VALUES ('admin-1', '2929');
 SELECT * FROM Appointments;
 
 SELECT * FROM Doctors_accounts;
+
+
+
+SELECT * FROM

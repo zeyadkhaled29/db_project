@@ -122,3 +122,25 @@ CREATE TABLE Admins_accounts (
     UserName VARCHAR(50) PRIMARY KEY,
     Password VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE prescription (
+    PrescriptionID SERIAL PRIMARY KEY,
+    DoctorID INTEGER,
+    PatientID INTEGER ,
+    Disease VARCHAR(100) ,
+    Medicine VARCHAR(300) , 
+    description VARCHAR(500) ,
+    CONSTRAINT prescription_Doctors_DoctorID_fk FOREIGN
+    KEY (DoctorID) REFERENCES Doctors (DoctorID),
+    CONSTRAINT prescription_Patients_PatientID_fk FOREIGN
+    KEY (PatientID) REFERENCES Patients (PatientID)
+);
+
+CREATE TABLE medical_history (
+    HistoryID SERIAL PRIMARY KEY,
+    PatientID INTEGER,
+    Disease VARCHAR(100) ,
+    description TEXT,
+    CONSTRAINT medical_history_Patients_PatientID_fk FOREIGN
+    KEY (PatientID) REFERENCES Patients (PatientID)
+);
