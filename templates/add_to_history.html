@@ -4,10 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add to Medical History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: hsla(209, 84%, 34%, 0.841);
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            color: hsla(209, 84%, 34%, 0.841);
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: hsla(209, 84%, 34%, 0.841);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: hsla(209, 84%, 24%, 0.841);
+        }
+    </style>
 </head>
 <body>
     <h1>Add to Medical History</h1>
-    <form method="post" action="/add_to_history"  >
+    <form method="post" action="/add_to_history">
         <label for="patient_id">Patient ID:</label>
         {% if patient_id %}
             <input type="text" id="patient_id" name="patient_id" value="{{ patient_id }}" required>
@@ -25,3 +77,4 @@
     </form>
 </body>
 </html>
+
