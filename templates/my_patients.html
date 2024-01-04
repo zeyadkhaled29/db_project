@@ -4,15 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Patients</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+            color: hsla(209, 84%, 44%, 0.841); /* Set title color to blue */
+            border-bottom: 2px solid hsla(209, 84%, 44%, 0.841); /* Set border color to blue */
+            padding-bottom: 10px; /* Add some spacing below the border */
+            margin-top: 20px; /* Add space above the title */
+        }
+
         .patient-container {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
         }
 
         .patient {
+            flex: 0 1 calc(33.33% - 20px);
             margin: 10px;
             text-align: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .patient:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         .patient img {
@@ -20,18 +50,33 @@
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
+            margin-bottom: 15px;
         }
 
         .patient-name {
-            margin-top: 5px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
         }
 
         .button-container {
-            margin-top: 10px;
+            display: flex;
+            justify-content: center;
         }
 
         .button {
-            margin-right: 10px;
+            background-color: hsla(209, 84%, 44%, 0.841); /* Set background color to blue */
+            color: #fff; /* Set font color to white */
+            padding: 12px 24px; /* Add padding for better appearance */
+            text-decoration: none; /* Remove underline from links */
+            border-radius: 4px; /* Add rounded corners */
+            margin: 0 10px;
+            display: inline-block; /* Make the button a block-level element */
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .button:hover {
+            background-color: hsla(209, 84%, 34%, 0.841); /* Darken the background on hover */
         }
     </style>
 </head>
