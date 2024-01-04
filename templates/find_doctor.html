@@ -29,7 +29,7 @@
         }
 
         label, button, h1, a {
-            color: rgba(34, 34, 191, 0.66); /* Change this to your desired color */
+            color: hsla(209, 84%, 34%, 0.841); /* Change this to your desired color */
         }
 
         label {
@@ -42,7 +42,7 @@
         }
 
         button {
-            background-color: rgb(59, 59, 188); /* Set background color to blue */
+            background-color: hsla(209, 84%, 34%, 0.841); /* Set background color to blue */
             color: white; /* Set font color to white */
             padding: 8px 16px; /* Add padding for better appearance */
             border: none; /* Remove border */
@@ -78,7 +78,7 @@
                     <h3>{{ doctor[2] }} {{ doctor[5] }}</h3>
                     <p>Phone: {{ doctor[8] }}</p>
                 </div>
-                <a href="{{ url_for('book_doctor', doctor_id=doctor[0]) }}" style="background-color: rgb(43, 43, 175); color: white; padding: 8px 16px; display: inline-block; text-decoration: none; border-radius: 4px;">Book Appointment</a>
+                <a href="{{ url_for('book_doctor', doctor_id=doctor[0]) }}" style="background-color: hsla(209, 84%, 34%, 0.841); color: white; padding: 8px 16px; display: inline-block; text-decoration: none; border-radius: 4px;">Book Appointment</a>
 
             </div>
         {% endfor %}
