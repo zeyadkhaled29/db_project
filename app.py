@@ -159,7 +159,7 @@ def add_doctor():
                 cursor.execute('INSERT INTO Doctors_accounts (DoctorID,UserName,Password) values(%s,%s,%s)',
                                 (DoctorID,username,password))
                 database_hospital.commit()
-                message="You have successfully signed up and that is your username"+username+"  password: "+password
+                message="You have successfully add doctor with username: "+username+"  password: "+password
     return render_template('add_doctor.html',msg=message)
 
 
