@@ -104,8 +104,8 @@
         <label>Patient Profile</label>
         <nav>
             <ul>
-                <li class="sign-in "><a class="button" href="sign_in.html">Sign In</a></li>
-                <li class="sign-up "><a class="button" href="add_patient.html">Sign Up</a></li>
+                <li class="sign-in "><a class="button" href="/sign_in">Sign In</a></li>
+                <li class="sign-up "><a class="button" href="/new_patient">Sign Up</a></li>
                 <li class="contact-us "><a class="button" href="#">Contact Us</a></li>
                 <li class="appointments "><a class="button" href="#">My Appointments</a></li>
                 <li class="find-doctors "><a class="button" href="#">Find Doctors</a></li>
@@ -117,7 +117,8 @@
     {% if session.get('logged_in') %}
         <div class="doctor-container">
             <div class="doctor-profile">
-                 <img src="{{ url_for('static', filename=session.patient_info.photo_path) }}" alt="Patient Photo" class="patient-photo">
+                 <img src="{{session.patient_info.patientimage}}" alt="Patient Photo" class="patient-photo">
+                 
                 <table>
                     <tr>
                         <th class="blue-bg">Main Information</th>
@@ -147,11 +148,11 @@
         </div>
     {% endif %}
     <div class="home-page">
-        <a href="{{ url_for('index') }}">Main Page</a> 
+        <a href="/">Main Page</a> 
     </div>
     {% if session.get('logged_in') %}
         <div class="logout">
-            <a href="{{ url_for('logout') }}">Log Out</a>
+            <a href="#">Log Out</a>
         </div>
     {% endif %}
 </body>
