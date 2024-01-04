@@ -6,9 +6,21 @@
     <title>Patients</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/add_styles.css') }}">
     <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
         header {
-            padding: 10px;
+            padding: 30px 10px; 
             text-align: center;
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px; 
         }
 
         nav ul {
@@ -16,68 +28,131 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
         }
 
         nav li {
             margin: 0 10px;
         }
+
         .sign-in a,
         .sign-up a,
         .contact-us a,
-        .home-page a {
+        .appointments a,
+        .find-doctors a,
+        .prescription a {
             text-decoration: none;
-            color: #fff; /* white text color */
+            color: #eaeff5;
             padding: 8px 16px;
             border-radius: 5px;
-            background-color: #007bff; /* blue background color */
+            background-color: #3917d3;
+        }
+        
+        .home-page a,
+        .logout a {
+            text-decoration: none;
+            color: #eaeff5;
+            padding: 8px 16px;
+            border-radius: 5px;
+            background-color: #1826b9;
+        }
+        
+        .home-page {
+            margin-top: 30px;
         }
 
-        .home-page {
-            margin-top: 20px; /* Adjust margin as needed */
+        header label {
+            color: #2e66a3;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 50px;
+        }
+        .custom-color a {
+            background-color: #0d18e2; /* Change this to the desired gray color */
+        }
+
+        .doctor-container {
+            margin: 20px;
+        }
+
+        .doctor-profile table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .doctor-profile th, .doctor-profile td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .doctor-profile th {
+            background-color: #f2f2f2;
+        }
+
+        .blue-bg {
+            color: #0d4480;
+        }
+
+        .label {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <header>
+        <label>Patient Profile</label>
         <nav>
             <ul>
-                <li class="sign-in"><a href="/sign_in">Sign In</a></li>
-                <li class="sign-up"><a href="/new_patient">Sign Up</a></li>
-                <li class="contact-us"><a href="#">Contact Us</a></li>
+                <li class="sign-in "><a class="button" href="sign_in.html">Sign In</a></li>
+                <li class="sign-up "><a class="button" href="add_patient.html">Sign Up</a></li>
+                <li class="contact-us "><a class="button" href="#">Contact Us</a></li>
+                <li class="appointments "><a class="button" href="#">My Appointments</a></li>
+                <li class="find-doctors "><a class="button" href="#">Find Doctors</a></li>
+                <li class="prescription "><a class="button" href="#">My Prescription</a></li>
             </ul>
+            
         </nav>
     </header>
     {% if session.get('logged_in') %}
         <div class="doctor-container">
             <div class="doctor-profile">
-                <h1>Patient Profile</h1>
-
-                <section class="main-info">
-                    <h2>Main Information</h2>
-                    <label>Patient ID: {{session.patient_info.patientid }}</label>
-                </section>
-                <section class="personal-info">
-                    <h2>Personal Information</h2>
-                    <label>First Name: {{session.patient_info.firstname }}</label>
-
-                    <label>Last Name: {{session.patient_info.lastname }}</label>
-
-                    <label>Birth Date: {{session.patient_info.dateofbirth }}</label>
-
-                    <label>Gender: {{session.patient_info.gender }}</label>
-                </section>
-
-                <section class="contact-info">
-                    <h2>Contact Information</h2>
-                    <label>Phone Number: {{session.patient_info.phonenumber }}</label>
-                    <label>Address: {{session.patient_info.street , session.patient_info.city }}</label>
-                </section>
+                 <img src="{{ url_for('static', filename=session.patient_info.photo_path) }}" alt="Patient Photo" class="patient-photo">
+                <table>
+                    <tr>
+                        <th class="blue-bg">Main Information</th>
+                        <td class="label">Patient ID:</td>
+                        <td>{{ session.patient_info.patientid }}</td>
+                    </tr>
+                    <tr>
+                        <th class="blue-bg">Personal Information</th>
+                        <td class="label">First Name:</td>
+                        <td>{{ session.patient_info.firstname }}</td>
+                        <td class="label">Last Name:</td>
+                        <td>{{ session.patient_info.lastname }}</td>
+                        <td class="label">Birth Date:</td>
+                        <td>{{ session.patient_info.dateofbirth }}</td>
+                        <td class="label">Gender:</td>
+                        <td>{{ session.patient_info.gender }}</td>
+                    </tr>
+                    <tr>
+                        <th class="blue-bg">Contact Information</th>
+                        <td class="label">Phone Number:</td>
+                        <td>{{ session.patient_info.phonenumber }}</td>
+                        <td class="label">Address:</td>
+                        <td colspan="2">{{ session.patient_info.street }}, {{ session.patient_info.city }}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     {% endif %}
     <div class="home-page">
-        <a href="/">Home Page</a>
+        <a href="{{ url_for('index') }}">Main Page</a> 
     </div>
+    {% if session.get('logged_in') %}
+        <div class="logout">
+            <a href="{{ url_for('logout') }}">Log Out</a>
+        </div>
+    {% endif %}
 </body>
 </html>
