@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to Medical History</title>
+</head>
+<body>
+    <h1>Add to Medical History</h1>
+    <form method="post" action="/add_to_history"  >
+        <label for="patient_id">Patient ID:</label>
+        {% if patient_id %}
+            <input type="text" id="patient_id" name="patient_id" value="{{ patient_id }}" required>
+        {% else %}
+            <input type="text" id="patient_id" name="patient_id" required>
+        {% endif %}
+
+        <label for="disease">Disease:</label>
+        <input type="text" id="disease" name="disease" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <button type="submit">Add to History</button>
+    </form>
+</body>
+</html>

@@ -333,14 +333,73 @@ def my_patients(doctor_id):
 
 @app.route('/show_history/<int:patient_id>')
 def show_history (patient_id):
-    return patient_id
+    cursor.execute('''SELECT *
+                   FROM medical_history WHERE PatientID =%s ''',(patient_id,))
+    history = cursor.fetchone()
+    if not history:
+        return render_template('show_history.html',msg="No Medical History Found!")
+    else:
+        patients_history = [{'PatientID': f"{history['patientid']}",
+                    'Disease': f"{history['disease']}",
+                    'description': f"{history['description']}"}
+                   for p_history in [history]]
+        return render_template("show_history.html",patients_history=patients_history)
 
-@app.route('/add_to_history/<int:patient_id>')
-def add_to_history (patient_id):
-    pass
 
+
+@app.route('/add_to_history' ,methods=['GET', 'POST'])
+def addToHistory ():
+    msg=''
+    if request.method=='POST':
+        patient_id = request.form['patient_id']
+        disease = request.form['disease']
+        description = request.form['description']
+        cursor.execute('''
+                        SELECT PatientID 
+                        FROM Patients
+                        WHERE PatientID= %s
+                        ''',(patient_id,))
+        if cursor.fetchone:
+            cursor.execute('INSERT INTO medical_history (PatientID,Disease,description) values(%s,%s,%s)',
+                                (patient_id,disease,description))
+            database_hospital.commit()
+            msg='Added successfully'
+    return render_template("add_to_history.html",msg=msg)
+
+@app.route('/add_to_history/<int:patient_id>', methods=['GET', 'POST'])
+def add_to_history(patient_id):
+    if request.method == 'GET':
+        return render_template("add_to_history.html", patient_id=patient_id)
+    # Rest of your route implementation
+
+    
 @app.route('/add_prescription/<int:patient_id>')
 def add_prescription (patient_id):
-    pass
+    return render_template("add_prescription.html",patient_id=patient_id)
+
+
+
+@app.route('/add_prescription' ,methods=['GET', 'POST'])
+def addPrescription ():
+    msg=''
+    if request.method=='POST':
+        patient_id = request.form['patient_id']
+        disease = request.form['disease']
+        medicine=request.form['medicine']
+        description = request.form['description']
+        cursor.execute('''
+                        SELECT PatientID 
+                        FROM Patients
+                        WHERE PatientID= %s
+                        ''',(patient_id,))
+        if cursor.fetchone:
+            cursor.execute('INSERT INTO prescription (PatientID,Disease,description,Medicine) values(%s,%s,%s,%s)',
+                                (patient_id,disease,description,medicine))
+            database_hospital.commit()
+            msg='Added successfully'
+    return render_template("add_prescription.html",msg=msg)
+
+
+
 
   

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Medical History</title>
+</head>
+<body>
+    <h1>Show Medical History</h1>
+    {% if msg %}
+        <div>{{ msg }}</div>
+    {% else %}
+        <p>Patient ID: {{ patients_history[0]['PatientID'] }}</p>
+        {% if patients_history %}
+            <ul>
+                {% for history_entry in patients_history %}
+                    <li>
+                        <strong>Disease:</strong> {{ history_entry['Disease'] }}<br>
+                        <strong>Description:</strong> {{ history_entry['description'] }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No Medical History Found!</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
