@@ -40,6 +40,6 @@ SELECT * FROM Appointments;
 
 SELECT * FROM Doctors_accounts;
 
-
+ SELECT * FROM Patients_accounts;
 
 SELECT * FROM

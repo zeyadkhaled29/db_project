@@ -104,12 +104,12 @@
         <label>Patient Profile</label>
         <nav>
             <ul>
-                <li class="sign-in "><a class="button" href="/sign_in">Sign In</a></li>
-                <li class="sign-up "><a class="button" href="/new_patient">Sign Up</a></li>
-                <li class="contact-us "><a class="button" href="#">Contact Us</a></li>
-                <li class="appointments "><a class="button" href="#">My Appointments</a></li>
-                <li class="find-doctors "><a class="button" href="#">Find Doctors</a></li>
-                <li class="prescription "><a class="button" href="#">My Prescription</a></li>
+                <li class="sign-in "><a class="button" href="/sign_in" target="_blank">Sign In</a></li>
+                <li class="sign-up "><a class="button" href="/new_patient" target="_blank">Sign Up</a></li>
+                <li class="contact-us "><a class="button" href="#" target="_blank">Contact Us</a></li>
+                <li class="appointments "><a class="button" href="#" target="_blank">My Appointments</a></li>
+                <li class="find-doctors "><a class="button" href="/find_doctor" target="_blank">Find Doctors</a></li>
+                <li class="prescription "><a class="button" href="#" target="_blank">My Prescription</a></li>
             </ul>
             
         </nav>
@@ -148,7 +148,7 @@
         </div>
     {% endif %}
     <div class="home-page">
-        <a href="/">Main Page</a> 
+        <a href="/" >Main Page</a> 
     </div>
     {% if session.get('logged_in') %}
         <div class="logout">

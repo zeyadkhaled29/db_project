@@ -3,66 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctors</title>
+    <title>Doctor Profile</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/add_styles.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #3498db; 
+            color: #ffffff; 
+            padding: 20px; 
+        }
+
+        .doctor-container {
+            margin-top: 20px; 
+        }
+
+        .main-info {
+            position: relative;
+        }
+
+        .main-info button {
+            margin-right: 10px;
+        }
+
+        .main-info::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 1px;
+            height: 20px; /* Adjust the height of the separator */
+            background-color: #ffffff; /* Color of the separator */
+            transform: translateY(-50%);
+        }
+    </style>
 </head>
-<header>
-    <nav>
-        <ul>
-            <li><a href="signin.html">Sign In</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="add_patient.html">Sign Up</a></li>
-        </ul>
-    </nav>
-</header>
 <body>
 
-    <div class="doctor-container">
-        <div class="doctor-profile">
-            <h1>Doctor Profile</h1>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/sign_in">Sign In</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="/new_patient">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    {% if session.get('logged_in') %}
+        <div class="doctor-container">
+            <div class="doctor-profile">
+                <h1>Doctor Profile</h1>
 
-            <section class="main-info">
-                <h2>Main Information</h2>
-                <label>Doctor ID:</label>
-                <p>DOC001</p>
+                <section class="main-info">
+                    <h2>Main Information</h2>
+                    <label>Doctor ID: {{ session.doctor_info.doctorid }}</label>
 
-                <label>Department:</label>
-                <p>Cardiology</p>
-            </section>
+                    <label>Department: {{ session.doctor_info.departmentid }}</label>
 
-            <section class="personal-info">
-                <h2>Personal Information</h2>
-                <label>First Name:</label>
-                <p>John</p>
+                    <button onclick="window.location.href='/my_calendar/{{session.doctor_info.doctorid}}'">My Calendar</button>
+                    <button onclick="window.location.href='/my_patients/{{session.doctor_info.doctorid}}'">My Patients</button>
+                </section>
 
-                <label>Last Name:</label>
-                <p>Doe</p>
+                
+                <section class="personal-info">
+                    <h2>Personal Information</h2>
+                    <!-- Add this part for the profile photo -->
+                    <div class="profile-photo">
+                        <img src="{{ session.doctor_info.doctorimage }}" alt="Doctor Profile Photo" class="doctor-image">
+                    </div>
+                    <label>First Name: {{ session.doctor_info.firstname }}</label>
 
-                <label>Birth Date:</label>
-                <p>1980-01-01</p>
+                    <label>Last Name: {{ session.doctor_info.lastname }}</label>
 
-                <label>Gender:</label>
-                <p>Male</p>
-            </section>
+                    <label>Birth Date: {{ session.doctor_info.dateofbirth }}</label>
 
-            <section class="contact-info">
-                <h2>Contact Information</h2>
-                <label>Phone Number:</label>
-                <p>123-456-7890</p>
+                    <label>Gender: {{ session.doctor_info.gender }}</label>
+                </section>
 
-                <label>Address:</label>
-                <p>123, 7th district, Giza</p>
-            </section>
+                <section class="contact-info">
+                    <h2>Contact Information</h2>
+                    <label>Phone Number: {{ session.doctor_info.phonenumber }}</label>
 
-            <section class="assigned-patients">
-                <h2>Assigned Patients</h2>
-                <ul>
-                    <li>Patient 1</li>
-                    <li>Patient 2</li>
-                </ul>
-            </section>
+                    <label>Address: {{ session.doctor_info.street }},{{ session.doctor_info.city }} </label>
+                </section>
+            </div>
         </div>
-    </div>
+    {% endif %}
 
 </body>
 </html>

@@ -227,7 +227,18 @@ def patient_profile():
             session['patient_info'] = dict(info)
     return render_template('patient.html')
 
-
+@app.route('/doctor_profile')
+def doctor_profile():
+    if  session.get('logged_in') and session.get('user_type') == 'doctor':
+        
+        doctor_id=session['user_account']['doctorid']
+        cursor.execute(''' SELECT *
+                    FROM Doctors 
+                    WHERE DoctorID=%s;''' ,(doctor_id,))
+        info = cursor.fetchone()
+        if info:
+            session['doctor_info'] = dict(info)
+    return render_template('doctor.html')
 
 
 
