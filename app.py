@@ -23,7 +23,7 @@ database_hospital = psycopg2.connect(
     port=5432,
     host='localhost',
     user='postgres',
-    password='root'
+    password='2929'
 )
 cursor = database_hospital.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
@@ -198,12 +198,13 @@ def new_patient():
                 PatientID = str(dict(cursor.fetchone())['patientid'])
                 if 'profile_image' in request.files:
                     f = request.files['profile_image']
-                    file_data = f.filename.split(".")
-                    filename = PatientID + "." + file_data[1]
-                    file_path = os.path.join(app.config['UPLOAD_PATIENT_IMG'], filename)
-                    f.save(os.path.join(app.config['UPLOAD_PATIENT_IMG'], filename))
-                    cursor.execute('UPDATE Patients  SET PatientImage = %s WHERE PatientID= %s', (file_path, PatientID))
-                    database_hospital.commit()
+                    if f.filename:
+                        file_data = f.filename.split(".")
+                        filename = PatientID + "." + file_data[1]
+                        file_path = os.path.join(app.config['UPLOAD_PATIENT_IMG'], filename)
+                        f.save(os.path.join(app.config['UPLOAD_PATIENT_IMG'], filename))
+                        cursor.execute('UPDATE Patients  SET PatientImage = %s WHERE PatientID= %s', (file_path, PatientID))
+                        database_hospital.commit()
                 username="patient-"+PatientID
                 cursor.execute('INSERT INTO Patients_accounts (PatientID,UserName,Password) values(%s,%s,%s)',
                                 (PatientID,username,password))
@@ -239,6 +240,11 @@ def doctor_profile():
         if info:
             session['doctor_info'] = dict(info)
     return render_template('doctor.html')
+
+
+@app.route('/admin_page')
+def admin_page():
+    return render_template('admin.html')
 
 
 
@@ -432,5 +438,30 @@ def contact_us():
 
 
 
+@app.route('/logout')
+def logout():
+    # Clear the session data
+    session.clear()
+    
+    # Redirect to the home page or any other desired location
+    return redirect('/')
 
-  
+
+
+
+@app.route('/my_appointments/<int:patient_id>')
+def my_appointments (patient_id):
+    cursor.execute('''SELECT *
+                   FROM Appointments WHERE PatientID =%s ''',(patient_id,))
+    appointments = cursor.fetchone()
+    if not appointments:
+        return render_template('my_appointments.html',msg="No appointments Found!")
+    else:
+        patients_appointments = [{'AppointmentDate': f"{appointment['appointmentdate']}",
+                    'start_hour': f"{appointment['start_hour']}",
+                    'end_hour': f"{appointment['end_hour']}",
+                    'Purpose': f"{appointment['purpose']}",
+                    'DoctorID': f"{appointment['doctorid']}"
+                    }
+                   for appointment in [appointments]]
+        return render_template("my_appointments.html",patients_appointments=patients_appointments)
