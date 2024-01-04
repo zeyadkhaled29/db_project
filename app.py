@@ -413,4 +413,24 @@ def addPrescription ():
 
 
 
+@app.route('/contact_us', methods=['GET', 'POST'])
+def contact_us():
+    msg=''
+    if request.method == 'POST':
+        sender_email = request.form['email']
+        description = request.form['message']
+
+        # Insert the form data into the 'messages' table
+        cursor.execute('INSERT INTO messages (sender_email, description) VALUES (%s, %s)',
+                       (sender_email, description))
+
+        # Commit the changes to the database
+        database_hospital.commit()
+
+    # Render the contact us form template for GET requests
+    return render_template('contact_us.html',msg=msg)
+
+
+
+
   
