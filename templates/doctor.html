@@ -47,7 +47,7 @@
         <nav>
             <ul>
                 <li><a href="/sign_in">Sign In</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="/contact_us">Contact Us</a></li>
                 <li><a href="/new_patient">Sign Up</a></li>
             </ul>
         </nav>
@@ -63,8 +63,8 @@
 
                     <label>Department: {{ session.doctor_info.departmentid }}</label>
 
-                    <button onclick="window.location.href='/my_calendar/{{session.doctor_info.doctorid}}'">My Calendar</button>
-                    <button onclick="window.location.href='/my_patients/{{session.doctor_info.doctorid}}'">My Patients</button>
+                    <button onclick="window.location.href='/my_calendar/{{session.doctor_info.doctorid}}'" target="_blank">My Calendar</button>
+                    <button onclick="window.location.href='/my_patients/{{session.doctor_info.doctorid}}'" target="_blank">My Patients</button>
                 </section>
 
                 

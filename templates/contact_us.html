@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
+    <title>Contact Us</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/add_styles.css') }}">
     <style>
         body {
@@ -62,7 +62,8 @@
             margin-bottom: 8px;
         }
 
-        input {
+        input,
+        textarea {
             padding: 8px;
             margin-bottom: 16px;
             width: 100%;
@@ -93,6 +94,7 @@
     <header>
         <nav>
             <ul>
+                <li><a href="/">Home</a></li>
                 <li><a href="/new_patient">Sign Up</a></li>
                 <li><a href="/contact_us">Contact Us</a></li>
             </ul>
@@ -100,18 +102,18 @@
     </header>
 
     <div class="container">
-        <h1>Sign In</h1>
+        <h1>Contact Us</h1>
         {% if msg %}
             <div class="msg">{{ msg }}</div>
         {% endif %}
-        <form method="post" action="{{ url_for('sign_in') }}">
-            <label for="user-name">Username:</label>
-            <input type="text" id="user-name" name="user-name" required>
+        <form method="post" action="/contact_us">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
 
-            <button type="submit">Sign In</button>
+            <button type="submit">Send Message</button>
         </form>
     </div>
 </body>
