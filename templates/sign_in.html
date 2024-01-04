@@ -5,14 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/add_styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #1a3f84;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fafafa;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #2e57ec;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #221ca1;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #0b42a8;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .msg {
+            margin-top: 10px;
+            text-align: center;
+            color: #e74c3c;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="/sign_in">Sign In</a></li>
-                <li><a href="#">Contact Us</a></li>
                 <li><a href="/new_patient">Sign Up</a></li>
+                <li><a href="#">Contact Us</a></li>
             </ul>
         </nav>
     </header>
@@ -20,11 +102,10 @@
     <div class="container">
         <h1>Sign In</h1>
         {% if msg %}
-            <div >{{ msg }}</div>
+            <div class="msg">{{ msg }}</div>
         {% endif %}
-        <form  method="post" action="{{ url_for('sign_in') }}">
-            
-            <label for="username">Username:</label>
+        <form method="post" action="{{ url_for('sign_in') }}">
+            <label for="user-name">Username:</label>
             <input type="text" id="user-name" name="user-name" required>
 
             <label for="password">Password:</label>
@@ -33,6 +114,5 @@
             <button type="submit">Sign In</button>
         </form>
     </div>
-
 </body>
 </html>
