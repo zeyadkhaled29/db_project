@@ -349,18 +349,19 @@ def my_patients(doctor_id):
 
 
 @app.route('/show_history/<int:patient_id>')
-def show_history (patient_id):
+def show_history(patient_id):
     cursor.execute('''SELECT *
-                   FROM medical_history WHERE PatientID =%s ''',(patient_id,))
-    history = cursor.fetchone()
+                   FROM medical_history WHERE PatientID =%s ''', (patient_id,))
+    history = cursor.fetchall()
     if not history:
-        return render_template('show_history.html',msg="No Medical History Found!")
+        return render_template('show_history.html', msg="No Medical History Found!")
     else:
-        patients_history = [{'PatientID': f"{history['patientid']}",
-                    'Disease': f"{history['disease']}",
-                    'description': f"{history['description']}"}
-                   for p_history in [history]]
-        return render_template("show_history.html",patients_history=patients_history)
+        patients_history = [{'PatientID': f"{p_history['patientid']}",
+                             'Disease': f"{p_history['disease']}",
+                             'description': f"{p_history['description']}"}
+                            for p_history in history]
+        return render_template("show_history.html", patients_history=patients_history)
+
 
 
 
@@ -450,35 +451,36 @@ def logout():
 
 
 @app.route('/my_appointments/<int:patient_id>')
-def my_appointments (patient_id):
+def my_appointments(patient_id):
     cursor.execute('''SELECT *
-                   FROM Appointments WHERE PatientID =%s ''',(patient_id,))
-    appointments = cursor.fetchone()
+                   FROM Appointments WHERE PatientID = %s ''', (patient_id,))
+    appointments = cursor.fetchall()
     if not appointments:
-        return render_template('my_appointments.html',msg="No appointments Found!")
+        return render_template('my_appointments.html', msg="No appointments found!")
     else:
         patients_appointments = [{'AppointmentDate': f"{appointment['appointmentdate']}",
-                    'start_hour': f"{appointment['start_hour']}",
-                    'end_hour': f"{appointment['end_hour']}",
-                    'Purpose': f"{appointment['purpose']}",
-                    'DoctorID': f"{appointment['doctorid']}"
-                    }
-                   for appointment in [appointments]]
-        return render_template("my_appointments.html",patients_appointments=patients_appointments)
+                                  'start_hour': f"{appointment['start_hour']}",
+                                  'end_hour': f"{appointment['end_hour']}",
+                                  'Purpose': f"{appointment['purpose']}",
+                                  'DoctorID': f"{appointment['doctorid']}"
+                                  }
+                                 for appointment in appointments]
+        return render_template("my_appointments.html", patients_appointments=patients_appointments)
+
     
 
 
 @app.route('/my_prescriptions/<int:patient_id>')
-def my_prescriptions (patient_id):
+def my_prescriptions(patient_id):
     cursor.execute('''SELECT *
-                   FROM prescription WHERE PatientID =%s ''',(patient_id,))
-    prescriptions = cursor.fetchone()
+                   FROM prescription WHERE PatientID = %s ''', (patient_id,))
+    prescriptions = cursor.fetchall()
     if not prescriptions:
-        return render_template('my_prescriptions.html',msg="No prescriptions Found!")
+        return render_template('my_prescriptions.html', msg="No prescriptions Found!")
     else:
-        patients_prescriptions = [{'Disease': f"{prescription['disease']}",
-                    'Medicine': f"{prescription['medicine']}",
-                    'description': f"{prescription['description']}"
-                    }
-                   for prescription in [prescriptions]]
-        return render_template("my_prescriptions.html",patients_prescriptions=patients_prescriptions)
+        patients_prescriptions = [{'Disease': f"{p_prescription['disease']}",
+                                   'Medicine': f"{p_prescription['medicine']}",
+                                   'description': f"{p_prescription['description']}"
+                                   }
+                                  for p_prescription in prescriptions]
+        return render_template("my_prescriptions.html", patients_prescriptions=patients_prescriptions)

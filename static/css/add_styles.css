@@ -133,3 +133,12 @@ section label,
 section p {
   margin-bottom: 10px;
 }
+
+
+.profile-photo img {
+  width: 100px; 
+  height: 100px; 
+  border-radius: 20%; 
+  margin-bottom: 10px; 
+  float: right;
+}

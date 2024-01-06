@@ -94,12 +94,14 @@
             <ul>
                 {% for prescription in patients_prescriptions %}
                     <li>
-                        <strong>Disease:</strong> {{ prescription['Disease'] }}<br>
-                        <strong>Medicine:</strong> {{ prescription['Medicine'] }}<br>
-                        <strong>Description:</strong> {{ prescription['description'] }}
+                        <strong>Disease:</strong>{{ prescription['Disease'] }}<br>
+                        <strong>Medicine:</strong>{{ prescription['Medicine'] }}<br>
+                        <strong>Description:</strong>{{ prescription['description'] }}
+                        <br><br>
                     </li>
                 {% endfor %}
             </ul>
+        
         {% endif %}
     </div>
 
