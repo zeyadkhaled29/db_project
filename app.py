@@ -101,7 +101,6 @@ def sign_in():
 @app.route('/add_doctor', methods=['POST','GET'])
 def add_doctor():
     message = ''
-    print(session.get('logged_in') , session.get('user_type'))
     # Check if the user is logged in and is an admin
     if not session.get('logged_in') or session.get('user_type') != 'admin':
         flash('You do not have permission to access this page.', 'error')
