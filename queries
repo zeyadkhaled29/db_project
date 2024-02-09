@@ -42,4 +42,6 @@ SELECT * FROM Doctors_accounts;
 
  SELECT * FROM Patients_accounts;
 
-SELECT * FROM
+SELECT * FROM Departments
+
+SELECT * FROM Appointments;
