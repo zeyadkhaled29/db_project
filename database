@@ -141,3 +141,8 @@ CREATE TABLE messages(
     sender_email VARCHAR NOT NULL,
     description TEXT
 );
+
+CREATE TABLE Admins_accounts (
+    UserName VARCHAR(50) PRIMARY KEY,
+    Password VARCHAR(255) NOT NULL
+);
